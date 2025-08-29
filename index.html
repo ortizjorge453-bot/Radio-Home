@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RADIO HOME</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8fafc;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(8px);
+      padding: 10px 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    header img {
+      height: 40px;
+      border-radius: 6px;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #374151;
+      font-weight: bold;
+    }
+    nav a:hover { color: #2563eb; }
+    .hero {
+      text-align: center;
+      padding: 120px 20px 40px;
+      background: linear-gradient(to right, #bfdbfe, #e9d5ff, #fbcfe8);
+    }
+    .hero img {
+      max-height: 200px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    h1 { font-size: 2em; margin-top: 20px; }
+    p { color: #374151; }
+    .btn {
+      padding: 12px 24px;
+      border-radius: 16px;
+      background: linear-gradient(to right, #ec4899, #8b5cf6, #3b82f6);
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .btn:hover { transform: scale(1.05); }
+    .bars { display: flex; gap: 2px; justify-content: center; height: 40px; margin-top: 20px; }
+    .bar {
+      width: 6px;
+      background: linear-gradient(to top, #ec4899, #3b82f6);
+      border-radius: 4px;
+      animation: bounce 1s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { height: 20%; }
+      50% { height: 100%; }
+    }
+    audio { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="radio_home_logo.png" alt="Radio Home Logo">
+      <span><strong>RADIO HOME</strong></span>
+    </div>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#radio">Radio</a>
+    </nav>
+  </header>
+
+  <section id="inicio" class="hero">
+    <img src="radio_home_logo.png" alt="Radio Home Banner">
+    <h1>📻 RADIO HOME – La radio del Adulto Contemporáneo</h1>
+    <p>Escucha nuestra transmisión en vivo mientras disfrutas de buena música.</p>
+  </section>
+
+  <section id="radio" style="padding: 60px 20px; text-align: center;">
+    <button id="playBtn" class="btn">Reproducir Radio</button>
+    <div class="bars" id="bars"></div>
+    <audio id="player" src="https://stream.zeno.fm/0enb8vaznpouv" controls></audio>
+  </section>
+
+  <script>
+    const btn = document.getElementById('playBtn');
+    const player = document.getElementById('player');
+    const bars = document.getElementById('bars');
+    let playing = false;
+
+    btn.addEventListener('click', () => {
+      playing = !playing;
+      if (playing) {
+        player.play();
+        btn.textContent = 'Detener Radio';
+        bars.innerHTML = Array.from({length: 10}).map((_, i) => `<div class='bar' style='animation-delay:${i*0.1}s'></div>`).join('');
+      } else {
+        player.pause();
+        btn.textContent = 'Reproducir Radio';
+        bars.innerHTML = '';
+      }
+    });
+  </script>
+</body>
+</html>
